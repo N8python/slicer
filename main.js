@@ -453,6 +453,7 @@ async function main() {
     const keys = {};
     document.onkeydown = (e) => {
         keys[e.key] = true;
+        controls.enabled = false;
         /* if (e.key === "e") {
             bodies.forEach(body => {
                  eviscerate(body);
@@ -461,6 +462,7 @@ async function main() {
     }
     document.onkeyup = (e) => {
         keys[e.key] = false;
+        controls.enabled = true;
     }
     const point1 = new THREE.Vector2();
     const point2 = new THREE.Vector2();
@@ -625,7 +627,9 @@ async function main() {
 
     function animate() {
         ground.material.roughness = 0.25;
-        updatePhysics(Math.min(clock.getDelta(), 0.3));
+        if(Object.keys(keys).length !== 0) {
+            updatePhysics(Math.min(clock.getDelta(), 0.3));
+        }
         controls.update();
         ground.material.update();
         renderer.setRenderTarget(defaultTexture);
