@@ -626,6 +626,11 @@ async function main() {
     function animate() {
         ground.material.roughness = 0.25;
         updatePhysics(Math.min(clock.getDelta(), 0.3));
+        if (point1.length() === 0) {
+            controls.enabled = true;
+        } else {
+            controls.enabled = false;
+        }
         controls.update();
         ground.material.update();
         renderer.setRenderTarget(defaultTexture);
